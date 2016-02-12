@@ -1,9 +1,9 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '7.0'
+platform :ios, '8.0' # needs to be >= 8.0 to support Segment
 
 target 'm2048' do
-    pod 'Amplitude-iOS', '~> 3.5.0'
-    # pod 'Amplitude-iOS', :path => '~/sdk/Amplitude-iOS'
-    # pod 'Analytics' # Segment
+    pod 'Analytics' # Segment
+    pod 'Segment-Amplitude'
+    # pod 'Segment-Amplitude', :path => '~/sdk/analytics-ios-integration-amplitude'
 end
 

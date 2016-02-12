@@ -1,9 +1,9 @@
-Amplitude iOS Demo
+Segment/Amplitude iOS Demo
 ================
 
 A simple 2048 derivative. See [the original](https://github.com/gabrielecirulli/2048) or the fantastic [version](https://github.com/danqing/2048) built by Danqing Liu that this demo is based on.
 
-The Amplitude integration contains these parts:
+This is a demo app to test the Segment/Amplitude iOS integration. The Amplitude integration contains these parts:
 
 * Add the Amplitude SDK using CocoaPods. See ```Podfile```.
 * Amplitude initialization in ```application:didFinishLaunchingWithOptions```.

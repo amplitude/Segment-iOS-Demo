@@ -9,7 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Analytics.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-m2048.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Segment-Amplitude.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>81E6E6E5AB6391CD56A7651E320AF853</key>
+		<key>A96F4C6C96DC18C678D2A95477EF9CF3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>94F2BE8724BA44C1E3C26A2BB2326D5A</key>
+		<key>BFBFADCDBA135F5CB9C14886D7FE1DEE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E703EF8141AB3D56D46182B4EA5FB571</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ECB00EF9AC23A6F393118195CD0821C8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
