@@ -11,8 +11,7 @@
 #import "M2Tile.h"
 #import "M2Scene.h"
 #import "M2ViewController.h"
-#import "Amplitude.h"
-#import "AMPIdentify.h"
+#import <Analytics/SEGAnalytics.h>
 
 /**
  * Helper function that checks the termination condition of either counting up or down.
@@ -59,7 +58,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 - (void)startNewSessionWithScene:(M2Scene *)scene
 {
-  [[Amplitude instance] logEvent:@"Start Game"];
+  [[SEGAnalytics sharedAnalytics] track:@"Start Game"];
 
   if (_grid) [_grid removeAllTilesAnimated:NO];
   if (!_grid || _grid.dimension != GSTATE.dimension) {
@@ -203,10 +202,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
   // Update current level.
   if (_level != nextLevel) {
-    AMPIdentify *identify = [[AMPIdentify identify] set:@"level" value: [NSNumber numberWithUnsignedInteger:_level]];
-    [identify append:@"list" value:@"value"];
-    [[Amplitude instance] identify:identify];
-    [[Amplitude instance] logEvent:@"Level Up" withEventProperties:@{
+    [[SEGAnalytics sharedAnalytics] track:@"Level Up" properties:@{
       @"score": [NSNumber numberWithUnsignedInteger:_score],
       @"level": [NSNumber numberWithUnsignedInteger:_level]
     }];

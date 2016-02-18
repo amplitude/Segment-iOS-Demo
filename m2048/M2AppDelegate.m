@@ -7,14 +7,17 @@
 //
 
 #import "M2AppDelegate.h"
-#import "Amplitude.h"
+#import <Analytics/SEGAnalytics.h>
+#import <Segment-Amplitude/SEGAmplitudeIntegrationFactory.h>
 
 @implementation M2AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [Amplitude instance].trackingSessionEvents = YES;
-  [[Amplitude instance] initializeApiKey:@"cd6312957e01361e6c876290f26d9104"];
+  // initialize Segment with Amplitude
+  SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"hlCKa6PghcMf2DoB9Hxo3RirQ0yYL15r"];
+  [config use:[SEGAmplitudeIntegrationFactory instance]];
+  [SEGAnalytics setupWithConfiguration:config];
 
   // Add action for remind later.
   UIMutableUserNotificationAction *laterAction = [[UIMutableUserNotificationAction alloc] init];
@@ -106,9 +109,14 @@
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier
         forRemoteNotification:(NSDictionary *)notification completionHandler:(void(^)())completionHandler
 {
-    NSLog(@"Received push notification: %@, identifier: %@", notification, identifier); // iOS 8
-    [[Amplitude instance] initializeApiKey:@"cd6312957e01361e6c876290f26d9104"];
-    [[Amplitude instance] logEvent:@"Opened Remote Notification"];
+  NSLog(@"Received push notification: %@, identifier: %@", notification, identifier); // iOS 8
+
+
+
+  SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"hlCKa6PghcMf2DoB9Hxo3RirQ0yYL15r"];
+  [config use:[SEGAmplitudeIntegrationFactory instance]];
+  [SEGAnalytics setupWithConfiguration:config];
+  [[SEGAnalytics sharedAnalytics] track:@"Opened Remote Notification"];
 
     completionHandler();
 }
@@ -118,8 +126,10 @@
 {
   if ([notification.category isEqualToString:@"reminder_category_id"])
   {
-    [[Amplitude instance] initializeApiKey:@"cd6312957e01361e6c876290f26d9104" userId:nil];
-    [[Amplitude instance] logEvent:@"Local Notification Action" withEventProperties:@{@"Action": identifier}];
+    SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"hlCKa6PghcMf2DoB9Hxo3RirQ0yYL15r"];
+    [config use:[SEGAmplitudeIntegrationFactory instance]];
+    [SEGAnalytics setupWithConfiguration:config];
+    [[SEGAnalytics sharedAnalytics] track:@"Local Notification Action" properties:@{@"Action": identifier}];
 
     if ([identifier isEqualToString:@"later_action_id"])
     {
