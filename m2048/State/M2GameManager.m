@@ -58,6 +58,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 - (void)startNewSessionWithScene:(M2Scene *)scene
 {
+  // track start game event to Segment/Amplitude
   [[SEGAnalytics sharedAnalytics] track:@"Start Game"];
 
   if (_grid) [_grid removeAllTilesAnimated:NO];
@@ -202,6 +203,8 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
   // Update current level.
   if (_level != nextLevel) {
+
+    // track Level Up event to Segment/Amplitude with some event properties
     [[SEGAnalytics sharedAnalytics] track:@"Level Up" properties:@{
       @"score": [NSNumber numberWithUnsignedInteger:_score],
       @"level": [NSNumber numberWithUnsignedInteger:_level]

@@ -14,10 +14,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  // initialize Segment with Amplitude
+  // initialize Segment SDK with Amplitude client-side bundled
   SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"hlCKa6PghcMf2DoB9Hxo3RirQ0yYL15r"];
   [config use:[SEGAmplitudeIntegrationFactory instance]];
   [SEGAnalytics setupWithConfiguration:config];
+
+  // use Segment's identify to set a userId with some user properties (traits)
+  [[SEGAnalytics sharedAnalytics] identify:@"bob@gmail.com" traits:@{@"name": @"Bob"}];
 
   // Add action for remind later.
   UIMutableUserNotificationAction *laterAction = [[UIMutableUserNotificationAction alloc] init];
@@ -111,14 +114,15 @@
 {
   NSLog(@"Received push notification: %@, identifier: %@", notification, identifier); // iOS 8
 
-
-
+  // initialize Segment SDK with Amplitude client-side bundled
   SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"hlCKa6PghcMf2DoB9Hxo3RirQ0yYL15r"];
   [config use:[SEGAmplitudeIntegrationFactory instance]];
   [SEGAnalytics setupWithConfiguration:config];
-  [[SEGAnalytics sharedAnalytics] track:@"Opened Remote Notification"];
 
-    completionHandler();
+  // use Segment's identify to set a userId with some user properties (traits)
+  [[SEGAnalytics sharedAnalytics] identify:@"bob@gmail.com" traits:@{@"name": @"Bob"}];
+
+  completionHandler();
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier
@@ -126,10 +130,13 @@
 {
   if ([notification.category isEqualToString:@"reminder_category_id"])
   {
+    // initialize Segment SDK with Amplitude client-side bundled
     SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"hlCKa6PghcMf2DoB9Hxo3RirQ0yYL15r"];
     [config use:[SEGAmplitudeIntegrationFactory instance]];
     [SEGAnalytics setupWithConfiguration:config];
-    [[SEGAnalytics sharedAnalytics] track:@"Local Notification Action" properties:@{@"Action": identifier}];
+
+    // use Segment's identify to set a userId with some user properties (traits)
+    [[SEGAnalytics sharedAnalytics] identify:@"bob@gmail.com" traits:@{@"name": @"Bob"}];
 
     if ([identifier isEqualToString:@"later_action_id"])
     {
